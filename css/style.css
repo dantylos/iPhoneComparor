@@ -1,0 +1,824 @@
+/* ==========================================================================
+   Design System & Base Tokens
+   ========================================================================== */
+:root {
+  /* Color Palette */
+  --bg-page: #FBFBFD;
+  --bg-surface: #FFFFFF;
+  --bg-surface-subtle: #F5F5F7;
+  --text-primary: #1D1D1F;
+  --text-secondary: #6E6E73;
+  --text-tertiary: #86868B;
+  --border-subtle: #E5E5EA;
+  --border-strong: #D2D2D7;
+  
+  /* Accent Warm Orange */
+  --accent-orange: #FF5500;
+  --accent-orange-hover: #E04B00;
+  --accent-orange-light: rgba(255, 85, 0, 0.08);
+  --accent-orange-glow: rgba(255, 85, 0, 0.25);
+  
+  /* Success Green */
+  --success-green: #34C759;
+  --success-green-dark: #28A745;
+  --success-surface: rgba(255, 255, 255, 0.15);
+  
+  /* Typography */
+  --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", "Segoe UI", Roboto, sans-serif;
+  
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4.5rem;
+  
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 4px 18px rgba(0, 0, 0, 0.05);
+  --shadow-card-hover: 0 12px 28px rgba(0, 0, 0, 0.09);
+  --shadow-float: 0 16px 36px rgba(0, 0, 0, 0.12);
+  
+  /* Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ==========================================================================
+   CSS Reset & Global Defaults
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-system);
+  color: var(--text-primary);
+  background-color: var(--bg-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-page);
+  overflow-x: hidden;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+button, a {
+  font-family: inherit;
+  color: inherit;
+  text-decoration: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-orange);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   Header & App Navigation
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  background: rgba(251, 251, 253, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: border-color var(--transition-fast);
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.875rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.brand-logo-icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.brand-badge-pill {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-orange);
+  background: var(--accent-orange-light);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-full);
+}
+
+.step-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.step-indicator strong {
+  color: var(--accent-orange);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Page Layout Containers
+   ========================================================================== */
+.main-container {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md) var(--space-3xl);
+}
+
+.hero-heading-group {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto var(--space-2xl);
+  padding: 0 var(--space-sm);
+}
+
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-orange);
+  margin-bottom: var(--space-xs);
+}
+
+.hero-title {
+  font-size: clamp(2rem, 5.5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.hero-title .highlight-orange {
+  color: var(--accent-orange);
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.1875rem);
+  color: var(--text-secondary);
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   Product Grid (Step 1: Choose Your Old iPhone)
+   ========================================================================== */
+.catalog-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+@media (min-width: 580px) {
+  .catalog-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 960px) {
+  .catalog-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1140px) {
+  .catalog-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* Product Card */
+.model-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  text-align: center;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  outline: none;
+  min-height: 380px;
+}
+
+.model-card:hover, .model-card:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--accent-orange-border);
+}
+
+.model-card:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+.card-top-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--text-secondary);
+  background: var(--bg-surface-subtle);
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-full);
+}
+
+.card-image-wrap {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1.5rem 0 1rem;
+  transition: transform var(--transition-base);
+}
+
+.model-card:hover .card-image-wrap {
+  transform: scale(1.03);
+}
+
+.card-info {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.card-model-name {
+  font-size: 1.1875rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+}
+
+.card-model-meta {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+
+.card-price-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.4rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--accent-orange);
+  background: var(--accent-orange-light);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  align-self: center;
+}
+
+.card-select-hint {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-top: 0.6rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  opacity: 0.75;
+  transition: opacity var(--transition-fast), color var(--transition-fast);
+}
+
+.model-card:hover .card-select-hint {
+  opacity: 1;
+  color: var(--accent-orange);
+}
+
+/* ==========================================================================
+   Configuration Pages (Step 2: Old iPhone, Step 3: iPhone 17 Pro Max)
+   ========================================================================== */
+.config-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (min-width: 840px) {
+  .config-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 3.5rem;
+    align-items: start;
+  }
+}
+
+/* Left Column: Device Stage */
+.device-stage {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: var(--shadow-card);
+  min-height: 420px;
+}
+
+@media (min-width: 840px) {
+  .device-stage {
+    position: sticky;
+    top: 5rem;
+    min-height: 480px;
+  }
+}
+
+.device-preview-wrapper {
+  width: 100%;
+  max-width: 280px;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-bounce);
+}
+
+.device-preview-wrapper svg {
+  filter: drop-shadow(0 18px 25px rgba(0, 0, 0, 0.14));
+}
+
+.stage-model-badge {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-orange);
+  background: var(--accent-orange-light);
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full);
+}
+
+.stage-color-label {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* Right Column: Options Form */
+.config-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.config-section-title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  margin-bottom: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.config-selection-hint {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-transform: none;
+  color: var(--accent-orange);
+}
+
+/* Color Swatches */
+.swatch-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+.swatch-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 64px;
+  min-height: 64px;
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  background: transparent;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.swatch-btn:hover {
+  background: var(--bg-surface-subtle);
+}
+
+.swatch-circle-ring {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-bounce), box-shadow var(--transition-fast);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid #FFFFFF;
+}
+
+.swatch-btn.is-selected .swatch-circle-ring {
+  transform: scale(1.08);
+  box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px var(--accent-orange);
+}
+
+.swatch-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: center;
+  max-width: 72px;
+  line-height: 1.2;
+}
+
+.swatch-btn.is-selected .swatch-name {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+/* Storage Pill Selectors */
+.storage-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+@media (min-width: 440px) {
+  .storage-group {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.storage-chip {
+  min-height: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 0.5rem;
+  background: var(--bg-surface);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+}
+
+.storage-chip:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-surface-subtle);
+}
+
+.storage-chip.is-selected {
+  border-color: var(--accent-orange);
+  background: var(--accent-orange-light);
+  color: var(--accent-orange);
+  box-shadow: 0 0 0 1px var(--accent-orange);
+}
+
+/* Action Area & OK Button */
+.config-actions {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.btn-primary-ok {
+  min-height: 52px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--accent-orange);
+  color: #FFFFFF;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: background var(--transition-fast), transform var(--transition-fast), opacity var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: 0 4px 14px var(--accent-orange-glow);
+}
+
+.btn-primary-ok:not(:disabled):hover {
+  background: var(--accent-orange-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px var(--accent-orange-glow);
+}
+
+.btn-primary-ok:not(:disabled):active {
+  transform: translateY(1px);
+}
+
+.btn-primary-ok:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+  box-shadow: none;
+  background: #C7C7CC;
+}
+
+.btn-back-link {
+  align-self: center;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 0 1rem;
+  border-radius: var(--radius-full);
+  transition: color var(--transition-fast);
+}
+
+.btn-back-link:hover {
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   Success Screen (Step 4: All Set!)
+   ========================================================================== */
+.success-viewport {
+  width: 100vw;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--success-green);
+  background-image: radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.18) 0%, transparent 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  color: #FFFFFF;
+  overflow-x: hidden;
+}
+
+.success-content {
+  width: 100%;
+  max-width: 520px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Animated SVG Checkmark */
+.checkmark-container {
+  width: 104px;
+  height: 104px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 50%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.checkmark-svg {
+  width: 56px;
+  height: 56px;
+  stroke: #FFFFFF;
+  stroke-width: 4.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.checkmark-circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  animation: strokeCircle 0.6s cubic-bezier(0.65, 0, 0.45, 1) 0.1s forwards;
+}
+
+.checkmark-check {
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: strokeCheck 0.35s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
+}
+
+@keyframes strokeCircle {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes strokeCheck {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.success-title {
+  font-size: clamp(2.25rem, 6vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.success-subtitle {
+  font-size: clamp(1.0625rem, 3vw, 1.25rem);
+  font-weight: 500;
+  opacity: 0.95;
+  margin-bottom: 2rem;
+}
+
+/* Summary Card */
+.summary-card {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: left;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
+}
+
+.summary-card-header {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.85;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  font-size: 0.9375rem;
+}
+
+.summary-row:not(:last-child) {
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.summary-row-label {
+  opacity: 0.85;
+}
+
+.summary-row-val {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: right;
+}
+
+.summary-swatch-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid #FFFFFF;
+  display: inline-block;
+}
+
+.btn-start-over {
+  min-height: 50px;
+  min-width: 200px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: var(--radius-full);
+  padding: 0 2rem;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+  transition: transform var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+}
+
+.btn-start-over:hover {
+  transform: translateY(-2px);
+  background: #F5F5F7;
+}
+
+/* ==========================================================================
+   Utilities & Micro-Animations
+   ========================================================================== */
+.fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
