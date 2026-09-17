@@ -11,7 +11,7 @@ export const OLD_IPHONE_MODELS = [
     id: 'iphone-11',
     name: 'iPhone 11',
     tagline: 'Dual-camera system with A13 Bionic',
-    startingPrice: '$249',
+    image: 'assets/images/iphone-11.png',
     cameraType: 'dual-vertical',
     islandType: 'notch',
     storageOptions: ['64 GB', '128 GB', '256 GB'],
@@ -27,7 +27,7 @@ export const OLD_IPHONE_MODELS = [
     id: 'iphone-12',
     name: 'iPhone 12',
     tagline: 'Ceramic Shield, 5G & A14 Bionic',
-    startingPrice: '$319',
+    image: 'assets/images/iphone-12.png',
     cameraType: 'dual-vertical',
     islandType: 'notch',
     storageOptions: ['64 GB', '128 GB', '256 GB'],
@@ -43,7 +43,7 @@ export const OLD_IPHONE_MODELS = [
     id: 'iphone-13',
     name: 'iPhone 13',
     tagline: 'Cinematic mode with A15 Bionic',
-    startingPrice: '$429',
+    image: 'assets/images/iphone-13.png',
     cameraType: 'dual-diagonal',
     islandType: 'notch',
     storageOptions: ['128 GB', '256 GB', '512 GB'],
@@ -59,7 +59,7 @@ export const OLD_IPHONE_MODELS = [
     id: 'iphone-14',
     name: 'iPhone 14',
     tagline: 'Photonic Engine & Crash Detection',
-    startingPrice: '$499',
+    image: 'assets/images/iphone-14.png',
     cameraType: 'dual-diagonal',
     islandType: 'notch',
     storageOptions: ['128 GB', '256 GB', '512 GB'],
@@ -75,7 +75,7 @@ export const OLD_IPHONE_MODELS = [
     id: 'iphone-15',
     name: 'iPhone 15',
     tagline: 'Dynamic Island, USB-C & 48MP',
-    startingPrice: '$599',
+    image: 'assets/images/iphone-15.png',
     cameraType: 'dual-diagonal',
     islandType: 'island',
     storageOptions: ['128 GB', '256 GB', '512 GB'],
@@ -91,7 +91,7 @@ export const OLD_IPHONE_MODELS = [
     id: 'iphone-16',
     name: 'iPhone 16',
     tagline: 'Apple Intelligence & Camera Control',
-    startingPrice: '$699',
+    image: 'assets/images/iphone-16.png',
     cameraType: 'dual-pill',
     islandType: 'island',
     storageOptions: ['128 GB', '256 GB', '512 GB'],
@@ -107,7 +107,7 @@ export const OLD_IPHONE_MODELS = [
     id: 'iphone-16-plus',
     name: 'iPhone 16 Plus',
     tagline: 'Expansive 6.7" display with A18',
-    startingPrice: '$799',
+    image: 'assets/images/iphone-16-plus.png',
     cameraType: 'dual-pill',
     islandType: 'island',
     storageOptions: ['128 GB', '256 GB', '512 GB'],
@@ -123,7 +123,7 @@ export const OLD_IPHONE_MODELS = [
     id: 'iphone-16-pro',
     name: 'iPhone 16 Pro',
     tagline: 'Grade 5 Titanium & 4K 120 fps Dolby',
-    startingPrice: '$899',
+    image: 'assets/images/iphone-16-pro.png',
     cameraType: 'triple-pro',
     islandType: 'island',
     storageOptions: ['128 GB', '256 GB', '512 GB', '1 TB'],
@@ -140,6 +140,7 @@ export const NEW_IPHONE_MODEL = {
   id: 'iphone-17-pro-max',
   name: 'iPhone 17 Pro Max',
   tagline: 'Next-Gen Neural Titanium Flagship',
+  image: 'assets/images/iphone-17-pro-max.png',
   cameraType: 'triple-pro-advanced',
   islandType: 'island',
   storageOptions: ['256 GB', '512 GB', '1 TB', '2 TB'],
@@ -266,9 +267,9 @@ export function generatePhoneSVG(options = {}) {
   }
 
   return `
-    <svg viewBox="0 0 160 240" width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="iPhone visual representation">
+    <svg viewBox="0 0 160 240" width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="iPhone representation">
       <defs>
-        <linearGradient id="chassisGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id="chassisGrad-${colorHex.replace('#','')}" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stop-color="${colorHex}" />
           <stop offset="100%" stop-color="${colorHex}" stop-opacity="0.88" />
         </linearGradient>
@@ -283,7 +284,7 @@ export function generatePhoneSVG(options = {}) {
       <rect x="4" y="4" width="152" height="232" rx="32" fill="none" stroke="url(#edgeGleam)" stroke-width="2.5" />
       
       <!-- Back Chassis Body -->
-      <rect x="6" y="6" width="148" height="228" rx="30" fill="url(#chassisGrad)" />
+      <rect x="6" y="6" width="148" height="228" rx="30" fill="url(#chassisGrad-${colorHex.replace('#','')})" />
       
       <!-- Camera Module Area -->
       ${showCameraBump ? cameraBumpMarkup : ''}
@@ -318,16 +319,18 @@ export function initCatalogPage() {
 
     return `
       <article class="model-card fade-in" data-id="${model.id}" tabindex="0" role="button" aria-label="Select ${model.name}">
-        <span class="card-top-badge">${model.storageOptions[0]} - ${model.storageOptions[model.storageOptions.length - 1]}</span>
+        <span class="card-top-badge">${model.storageOptions[0]} – ${model.storageOptions[model.storageOptions.length - 1]}</span>
         <div class="card-image-wrap">
-          ${phoneSvg}
+          <img src="${model.image}" alt="${model.name}" class="card-device-photo" style="display:none;" onload="this.style.display='block'; if(this.nextElementSibling) this.nextElementSibling.style.display='none';" onerror="this.remove();">
+          <div class="card-svg-fallback">
+            ${phoneSvg}
+          </div>
         </div>
         <div class="card-info">
           <h2 class="card-model-name">${model.name}</h2>
           <p class="card-model-meta">${model.tagline}</p>
-          <div class="card-price-tag">Trade-in from ${model.startingPrice}</div>
           <div class="card-select-hint">
-            <span>Configure</span>
+            <span>Select</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </div>
         </div>
@@ -464,12 +467,17 @@ export function initOldIPhoneConfigPage() {
   }
 
   function updatePreview(hex) {
-    stagePreviewEl.innerHTML = generatePhoneSVG({
-      colorHex: hex,
-      cameraType: model.cameraType,
-      width: 170,
-      height: 255
-    });
+    stagePreviewEl.innerHTML = `
+      <img src="${model.image}" alt="${model.name}" class="stage-device-photo" style="display:none;" onload="this.style.display='block'; if(this.nextElementSibling) this.nextElementSibling.style.display='none';" onerror="this.remove();">
+      <div class="stage-svg-fallback">
+        ${generatePhoneSVG({
+          colorHex: hex,
+          cameraType: model.cameraType,
+          width: 170,
+          height: 255
+        })}
+      </div>
+    `;
     if (stageColorNameEl) {
       stageColorNameEl.textContent = selectedColor ? selectedColor.name : 'Choose a color';
     }
@@ -578,12 +586,17 @@ export function initNewIPhoneConfigPage() {
   }
 
   function updatePreview(hex) {
-    stagePreviewEl.innerHTML = generatePhoneSVG({
-      colorHex: hex,
-      cameraType: model.cameraType,
-      width: 180,
-      height: 270
-    });
+    stagePreviewEl.innerHTML = `
+      <img src="${model.image}" alt="${model.name}" class="stage-device-photo" style="display:none;" onload="this.style.display='block'; if(this.nextElementSibling) this.nextElementSibling.style.display='none';" onerror="this.remove();">
+      <div class="stage-svg-fallback">
+        ${generatePhoneSVG({
+          colorHex: hex,
+          cameraType: model.cameraType,
+          width: 180,
+          height: 270
+        })}
+      </div>
+    `;
     if (stageColorNameEl) {
       stageColorNameEl.textContent = selectedColor ? selectedColor.name : 'Choose a finish';
     }
@@ -634,7 +647,7 @@ export function initSuccessPage() {
     storage: '512 GB'
   };
 
-  if (oldModelEl) oldModelEl.textContent = oldPhone.name || 'iPhone (Classic)';
+  if (oldModelEl) oldModelEl.textContent = oldPhone.name || 'iPhone';
   if (oldColorEl) {
     oldColorEl.innerHTML = `
       <span class="summary-swatch-dot" style="background-color: ${oldPhone.colorHex || '#333'}"></span>
