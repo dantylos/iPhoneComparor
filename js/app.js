@@ -673,9 +673,71 @@ export function initSuccessPage() {
   }
 }
 
+// =============================================================================
+// 5. Theme Toggle (Light / Dark)
+// =============================================================================
+
+const THEME_STORAGE_KEY = 'theme_preference';
+
+/**
+ * Resolve the effective theme: user preference > system preference > 'light'
+ */
+function resolveTheme() {
+  try {
+    if (typeof localStorage !== 'undefined') {
+      const stored = localStorage.getItem(THEME_STORAGE_KEY);
+      if (stored === 'dark' || stored === 'light') return stored;
+    }
+  } catch { /* noop */ }
+
+  if (typeof window !== 'undefined' && window.matchMedia?.('(prefers-color-scheme: dark)').matches) {
+    return 'dark';
+  }
+  return 'light';
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || 'light';
+  const next = current === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
+  try {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(THEME_STORAGE_KEY, next);
+    }
+  } catch { /* noop */ }
+}
+
+export function initThemeToggle() {
+  // Apply stored/system preference immediately
+  applyTheme(resolveTheme());
+
+  const btn = document.getElementById('theme-toggle');
+  if (btn) {
+    btn.addEventListener('click', toggleTheme);
+  }
+
+  // Listen for system preference changes (live)
+  if (typeof window !== 'undefined' && window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      // Only auto-follow system if user hasn't explicitly chosen
+      try {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem(THEME_STORAGE_KEY)) return;
+      } catch { /* noop */ }
+      applyTheme(e.matches ? 'dark' : 'light');
+    });
+  }
+}
+
 // Auto-run matching page initializer on DOM ready
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', () => {
+    // Theme toggle is global across all pages
+    initThemeToggle();
+
     const pageId = document.body?.dataset?.page;
     if (pageId === 'catalog') initCatalogPage();
     else if (pageId === 'old-config') initOldIPhoneConfigPage();

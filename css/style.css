@@ -52,6 +52,36 @@
   --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-bounce: 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  color-scheme: light;
+}
+
+/* ==========================================================================
+   Dark Theme Override
+   ========================================================================== */
+[data-theme="dark"] {
+  --bg-page: #000000;
+  --bg-surface: #1C1C1E;
+  --bg-surface-subtle: #2C2C2E;
+  --text-primary: #F5F5F7;
+  --text-secondary: #A1A1A6;
+  --text-tertiary: #8E8E93;
+  --border-subtle: #38383A;
+  --border-strong: #48484A;
+
+  /* Accent: slightly warmer for dark bg readability */
+  --accent-orange: #FF6A33;
+  --accent-orange-hover: #FF7A4D;
+  --accent-orange-light: rgba(255, 106, 51, 0.12);
+  --accent-orange-glow: rgba(255, 106, 51, 0.30);
+
+  /* Shadows: stronger on dark */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-card: 0 4px 18px rgba(0, 0, 0, 0.30);
+  --shadow-card-hover: 0 12px 28px rgba(0, 0, 0, 0.40);
+  --shadow-float: 0 16px 36px rgba(0, 0, 0, 0.50);
+
+  color-scheme: dark;
 }
 
 /* ==========================================================================
@@ -118,8 +148,54 @@ button {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border-subtle);
-  transition: border-color var(--transition-fast);
+  transition: background var(--transition-base), border-color var(--transition-fast);
 }
+
+[data-theme="dark"] .site-header {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  transition: background var(--transition-fast), color var(--transition-fast),
+              border-color var(--transition-fast), transform var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  background: var(--border-subtle);
+  color: var(--text-primary);
+  transform: scale(1.08);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-toggle:hover svg {
+  transform: rotate(15deg);
+}
+
+.theme-toggle .icon-sun { display: none; }
+.theme-toggle .icon-moon { display: block; }
+
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 
 .header-inner {
   max-width: 1200px;
@@ -128,6 +204,13 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .brand-badge {
@@ -805,6 +888,47 @@ button {
 .btn-start-over:hover {
   transform: translateY(-2px);
   background: #F5F5F7;
+}
+
+/* ==========================================================================
+   Theme Transition Smoothing
+   ========================================================================== */
+html,
+body,
+.site-header,
+.model-card,
+.device-stage,
+.storage-chip,
+.swatch-btn,
+.btn-primary-ok,
+.btn-back-link {
+  transition: background-color var(--transition-base), color var(--transition-base),
+              border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+/* Dark theme: swatch ring border uses dark surface instead of white */
+[data-theme="dark"] .swatch-circle-ring {
+  border-color: var(--bg-surface);
+}
+
+[data-theme="dark"] .swatch-btn.is-selected .swatch-circle-ring {
+  box-shadow: 0 0 0 2px var(--bg-surface), 0 0 0 4px var(--accent-orange);
+}
+
+/* Dark theme: disabled button */
+[data-theme="dark"] .btn-primary-ok:disabled {
+  background: #3A3A3C;
+  color: var(--text-tertiary);
+}
+
+/* Dark theme: start-over button */
+[data-theme="dark"] .btn-start-over {
+  background: #1C1C1E;
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .btn-start-over:hover {
+  background: #2C2C2E;
 }
 
 /* ==========================================================================
